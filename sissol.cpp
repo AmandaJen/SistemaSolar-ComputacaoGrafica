@@ -26,11 +26,10 @@ void circulo(float x, float y, float radius, float r, float g, float b){
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    /*gluLookAt(
-        2.0, 2.0, 0.0,   // posição da câmera
-        0.0, 0.0, 0.0,   // olhar para o centro
-        0.0, 1.0, 0.0    // "up" no eixo Y
-    );*/
+    // Câmera
+    gluLookAt(0, 5, 15,  // posição da câmera, onde a camera está
+        0, 0, 0,   // para onde a câmera olha
+        0, 1, 0);  // eixo Y // define que o  y é para cima
 
     //sol
     glPushMatrix();
@@ -76,22 +75,24 @@ void animacaoTerra(int valor) {
 
 }
 
-/*void init() {
+void init() {
     glMatrixMode(GL_PROJECTION); // estamos ajustando a projeção
     glLoadIdentity();            // reset da matriz
     gluPerspective(45.0, 1.0, 0.1, 100.0); // fovy, aspect, zNear, zFar
     glMatrixMode(GL_MODELVIEW);  // volta para modelagem
-}*/
+}
 
 //void gluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar);
 
 int main(int argc, char** argv) {
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-    glutInitWindowSize(500, 500);
+    glutInitWindowSize(800, 600);
     glutCreateWindow("Circulo OpenGL");
+
+    init();
 
     glutDisplayFunc(display);
     glutTimerFunc(25, animacaoTerra, 0);
