@@ -4,7 +4,8 @@
 float anguloOrbita [9] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 float anguloRotacao [9] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
-
+GLfloat iluBranca[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+GLfloat iluAmbi[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
 // Função de inicialização
 void init() {
@@ -12,10 +13,6 @@ void init() {
 
     // Iluminação
     glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-
-    GLfloat posicaoLuz[] = {0.0f, 0.0f, 0.0f, 1.0f}; // luz no sol
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
 
     // Material padrão
     glEnable(GL_COLOR_MATERIAL);
@@ -23,6 +20,26 @@ void init() {
 
     glClearColor(0.0, 0.0, 0.0, 1.0); // fundo preto (espaço)
 }
+
+void hajaLuz() {
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, iluAmbi);
+  
+    // LÂMPADA 0: O Sol irradiando luz (Luz Pontual) ---
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, iluBranca);
+    // Posição no centro
+    GLfloat posPontual[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    glLightfv(GL_LIGHT0, GL_POSITION, posPontual);
+ 
+ 
+    // LÂMPADA 1: Iluminação do Sol (Luz Pontual) ---
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, iluBranca);
+    // Posição pouco a frente do Sol, iluminando o próprio Sol
+    GLfloat posPontual1[] = { 0.0f, 1.0f, 2.0f, 1.0f };
+    glLightfv(GL_LIGHT1, GL_POSITION, posPontual1);
+ }
+ 
 
 void desenhaPlaneta(float anguloOrbita, float anguloRotacao, float xDoSol, float r, float g, float b, float raio){
     glPushMatrix();
@@ -71,11 +88,11 @@ void display() {
     gluLookAt(0, 10, 30,  // posição da câmera, onde a camera está
               0, 0, 0,   // para onde a câmera olha
               0, 1, 0);  // eixo Y // define que o  y é para cima
-
+    hajaLuz();
 
     //  Sol (com emissão de luz)
     GLfloat emissaoSol[] = {1.0, 0.8, 0.0, 1.0}; // brilho amarelo r,g,b e alfa
-    glMaterialfv(GL_FRONT, GL_EMISSION, emissaoSol); //
+    glMaterialfv(GL_FRONT, GL_EMISSION, emissaoSol); 
 
     glColor3f(1.0, 0.8, 0.0); //cor da esfera 
     glutSolidSphere(1.0, 50, 50); //esfera
@@ -85,31 +102,31 @@ void display() {
     glMaterialfv(GL_FRONT, GL_EMISSION, semEmissao);
 
     //Mercurio
-    desenhaPlaneta(anguloOrbita[0], anguloRotacao[0], 3.0f, 1.0f, 0.4f, 0.2f, 0.3f);
+    desenhaPlaneta(anguloOrbita[0], anguloRotacao[0], 3.0f, 1.0, 0.3, 0.1, 0.3f);
     
     //Venus
-    desenhaPlaneta(anguloOrbita[1], anguloRotacao[1], 5.0, 1.0, 0.3, 0.0, 0.7);
+    desenhaPlaneta(anguloOrbita[1], anguloRotacao[1], 5.0, 0.7, 0.7, 0.4, 0.7);
 
     //Terra
-    desenhaPlaneta(anguloOrbita[2], anguloRotacao[2], 7.5, 0.0, 0.2, 1.0, 0.4);
+    desenhaPlaneta(anguloOrbita[2], anguloRotacao[2], 7.5, 0.0, 0.5, 1.0, 0.4);
 
     //Lua Terra
     desenhaSatelite(anguloOrbita[2],anguloOrbita[8],anguloRotacao[8], 7.5, 1.0, 1.0, 1.0, 0.1);
 
     //Marte
-    desenhaPlaneta(anguloOrbita[3], anguloRotacao[3], 11.0, 1.0, 0.0, 0.0, 0.3);
+    desenhaPlaneta(anguloOrbita[3], anguloRotacao[3], 11.0, 1.0f, 0.4f, 0.2f, 0.3);
 
     //Jupiter
-    desenhaPlaneta(anguloOrbita[4], anguloRotacao[4], 15.0, 1.0, 0.4, 0.0, 0.8);
+    desenhaPlaneta(anguloOrbita[4], anguloRotacao[4], 15.0, 0.7, 0.4, 0.15, 0.8);
 
     //Saturno
-    desenhaPlaneta(anguloOrbita[5], anguloRotacao[5], 20.0, 0.0, 0.2, 1.0, 0.64);
+    desenhaPlaneta(anguloOrbita[5], anguloRotacao[5], 20.0, 1.0, 1.0, 0.7, 0.64);
 
     //Urano
-    desenhaPlaneta(anguloOrbita[6], anguloRotacao[6], 25.0, 0.0, 0.3, 1.0, 0.3);
+    desenhaPlaneta(anguloOrbita[6], anguloRotacao[6], 25.0, 0.4, 0.8, 1.1, 0.3);
 
     //Netuno
-    desenhaPlaneta(anguloOrbita[7], anguloRotacao[7], 30.0, 0.0, 0.0, 1.0, 0.3);
+    desenhaPlaneta(anguloOrbita[7], anguloRotacao[7], 30.0, 0.1, 0.1, 1.0, 0.3);
 
 
     glutSwapBuffers(); //troca de buffer 
@@ -127,7 +144,43 @@ void update(int value) {
     anguloRotacao[2] += 2.0f;    // velocidade da rotação
 
     anguloOrbita[3] += 1.0f;
-    anguloRotacao[3] += 0.0f;
+    anguloRotacao[3] += 0.0f;#include <GL/glut.h>
+
+//Mercurio, Venus, Terra, Marte, Jupiter, Saturno, Netuno, Lua
+float anguloOrbita [9] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+float anguloRotacao [9] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+
+
+
+// Função de inicialização
+void init() {
+    glEnable(GL_DEPTH_TEST);
+
+    // Iluminação
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+    GLfloat posicaoLuz[] = {0.0f, 0.0f, 0.0f, 1.0f}; // luz no sol
+    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
+
+    // Material padrão
+    glEnable(GL_COLOR_MATERIAL);
+    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+
+    glClearColor(0.0, 0.0, 0.0, 1.0); // fundo preto (espaço)
+}
+
+void desenhaPlaneta(float anguloOrbita, float anguloRotacao, float xDoSol, float r, float g, float b, float raio){
+    glPushMatrix();
+
+    glRotatef(anguloOrbita, 0.0, 1.0, 0.0); //angulo da orbita em relacao ao sol
+    glTranslatef(xDoSol, 0.0, 0.0); // x muda a distancia em relacao ao sol
+
+    // Rotação do planeta
+    glRotatef(anguloRotacao, 0.2, 0.7, 0.0); //rotação no proprio eixo 
+
+  
+
 
     anguloOrbita[4] += 0.5f;
     anguloRotacao[4] += 0.0f;
