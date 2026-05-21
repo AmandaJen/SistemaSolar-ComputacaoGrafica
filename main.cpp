@@ -144,43 +144,7 @@ void update(int value) {
     anguloRotacao[2] += 2.0f;    // velocidade da rotação
 
     anguloOrbita[3] += 1.0f;
-    anguloRotacao[3] += 0.0f;#include <GL/glut.h>
-
-//Mercurio, Venus, Terra, Marte, Jupiter, Saturno, Netuno, Lua
-float anguloOrbita [9] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-float anguloRotacao [9] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-
-
-
-// Função de inicialização
-void init() {
-    glEnable(GL_DEPTH_TEST);
-
-    // Iluminação
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-
-    GLfloat posicaoLuz[] = {0.0f, 0.0f, 0.0f, 1.0f}; // luz no sol
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
-
-    // Material padrão
-    glEnable(GL_COLOR_MATERIAL);
-    glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-
-    glClearColor(0.0, 0.0, 0.0, 1.0); // fundo preto (espaço)
-}
-
-void desenhaPlaneta(float anguloOrbita, float anguloRotacao, float xDoSol, float r, float g, float b, float raio){
-    glPushMatrix();
-
-    glRotatef(anguloOrbita, 0.0, 1.0, 0.0); //angulo da orbita em relacao ao sol
-    glTranslatef(xDoSol, 0.0, 0.0); // x muda a distancia em relacao ao sol
-
-    // Rotação do planeta
-    glRotatef(anguloRotacao, 0.2, 0.7, 0.0); //rotação no proprio eixo 
-
-  
-
+    anguloRotacao[3] += 0.0f;
 
     anguloOrbita[4] += 0.5f;
     anguloRotacao[4] += 0.0f;
