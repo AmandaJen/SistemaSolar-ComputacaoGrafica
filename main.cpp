@@ -78,6 +78,15 @@ glutSolidSphere(raio, 50, 50);
 glPopMatrix();
 }
 
+void desenhaAnel(float raioInterno, float raioExterno, float r, float g, float b) {
+    GLUquadric* quad = gluNewQuadric();
+    glColor3f(r, g, b); // cor do anel
+    glRotatef(90, 1.0, 0.0, 0.0); // gira para ficar no plano horizontal
+    gluDisk(quad, raioInterno, raioExterno, 50, 1); // disco com buraco
+    glRotatef(-90, 1.0, 0.0, 0.0); // volta ao plano original
+    gluDeleteQuadric(quad);
+}
+
 // Desenhar cena
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //limpa o buffer de cor e o buffer de profundidade, usado para determinar qual objeto está na frente do outro
@@ -120,7 +129,14 @@ void display() {
     desenhaPlaneta(anguloOrbita[4], anguloRotacao[4], 15.0, 0.7, 0.4, 0.15, 0.8);
 
     //Saturno
-    desenhaPlaneta(anguloOrbita[5], anguloRotacao[5], 20.0, 1.0, 1.0, 0.7, 0.64);
+    desenhaPlaneta(anguloOrbita[5], anguloRotacao[5], 20.0, 0.8, 0.8, 0.5, 0.64);
+
+    //Anel de Saturno
+    glPushMatrix();
+    glRotatef(anguloOrbita[5], 0.0, 1.0, 0.0); // orbita junto com Saturno
+    glTranslatef(20.0, 0.0, 0.0); // posição de Saturno
+    desenhaAnel(0.8, 1.2, 2.7, 2.9, 2.7); // ajuste os raios interno e externo do anel
+    glPopMatrix();
 
     //Urano
     desenhaPlaneta(anguloOrbita[6], anguloRotacao[6], 25.0, 0.4, 0.8, 1.1, 0.3);
