@@ -91,7 +91,7 @@ void display() {
     hajaLuz();
 
     //  Sol (com emissão de luz)
-    GLfloat emissaoSol[] = {1.0, 0.8, 0.0, 1.0}; // brilho amarelo r,g,b e alfa
+    GLfloat emissaoSol[] = {0.8, 0.6, 0.0, 1.0}; // brilho amarelo r,g,b e alfa
     glMaterialfv(GL_FRONT, GL_EMISSION, emissaoSol); 
 
     glColor3f(1.0, 0.8, 0.0); //cor da esfera 
