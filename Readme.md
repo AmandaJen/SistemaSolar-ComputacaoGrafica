@@ -25,14 +25,21 @@
         <p>
         :milky_way:: <b>Modelagem com Primitivas Geométricas:</b> Utilização de esferas 3D para a
         construção do Sol, dos planetas e da Lua.
+        </p>    
+        <p>
         :milky_way:: <b>Transformações Geométricas 3D:</b> Emprego de matrizes de transformação 3D e
         composições matemáticas para o cálculo de translação, rotação e escalonamento
         dos corpos celestes.
+        </p>    
+        <p>
         :milky_way:: <b>Câmera e Projeção:</b> Configuração de câmeras virtuais e uso de projeções em
         perspectiva para renderizar a visão do espaço.
+        </p>    
+        <p>
         :milky_way:: <b>Iluminação e Sombreamento (Shading):</b> Implementação de modelos de
         iluminação (Phong ou Gouraud). O Sol deve ser configurado como uma fonte de luz
         do tipo pontual, emitindo raios de luz para sombrear os planetas.
+        </p>    
         </div>
     </center>
 </body>
