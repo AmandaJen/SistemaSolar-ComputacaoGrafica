@@ -4,9 +4,7 @@
             <h1 align="center"> :sunny: Programa do Sistema solar :sunny: </h1>
             <br>
             <div align="center">
-                <video autoplay="autoplay">
-                <source src="SistemaSolar.mp4" type="video/mp4">
-                </video>
+                <img src="SistemaSolar.gif" align="center">
             </div>
         <div>
         <div>
